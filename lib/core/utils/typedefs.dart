@@ -1,0 +1,1 @@
+typedef BaseResponse<T> = ({bool success, String message, T? data});
