@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:olly_weather_app/core/utils/app_textstyles.dart';
 
 class AppTextField extends StatelessWidget {
   final String? hintText;
@@ -11,7 +12,9 @@ class AppTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.grey),
+        hintStyle: AppTextStyles.s14w400.copyWith(
+          color: Colors.grey[600],
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: Colors.grey),

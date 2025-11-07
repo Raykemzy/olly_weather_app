@@ -5,6 +5,6 @@ class MobileHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('Mobile Home Page')));
+    return const Center(child: Text('Mobile Home Page'));
   }
 }

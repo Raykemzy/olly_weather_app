@@ -11,6 +11,16 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsConfigsGen {
+  const $AssetsConfigsGen();
+
+  /// File path: assets/configs/.env
+  String get aEnv => 'assets/configs/.env';
+
+  /// List of all assets
+  List<String> get values => [aEnv];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -26,13 +36,38 @@ class $AssetsImagesGen {
   AssetGenImage get darkSky =>
       const AssetGenImage('assets/images/dark_sky.jpg');
 
+  /// File path: assets/images/mist.jpg
+  AssetGenImage get mist => const AssetGenImage('assets/images/mist.jpg');
+
+  /// File path: assets/images/neutral.jpg
+  AssetGenImage get neutral => const AssetGenImage('assets/images/neutral.jpg');
+
+  /// File path: assets/images/rain.jpg
+  AssetGenImage get rain => const AssetGenImage('assets/images/rain.jpg');
+
+  /// File path: assets/images/snow.jpg
+  AssetGenImage get snow => const AssetGenImage('assets/images/snow.jpg');
+
+  /// File path: assets/images/sunny.jpg
+  AssetGenImage get sunny => const AssetGenImage('assets/images/sunny.jpg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [clearSky, cloudySky, darkSky];
+  List<AssetGenImage> get values => [
+    clearSky,
+    cloudySky,
+    darkSky,
+    mist,
+    neutral,
+    rain,
+    snow,
+    sunny,
+  ];
 }
 
 class Assets {
   const Assets._();
 
+  static const $AssetsConfigsGen configs = $AssetsConfigsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

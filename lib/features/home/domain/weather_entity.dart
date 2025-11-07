@@ -32,4 +32,9 @@ class WeatherEntity {
     windSpeed: 0,
     iconUrl: '',
   );
+
+  @override
+  String toString() {
+    return 'WeatherEntity(city: $city, country: $country, temperatureCelsius: $temperatureCelsius, feelsLikeCelsius: $feelsLikeCelsius, humidity: $humidity, condition: $condition, description: $description, windSpeed: $windSpeed, iconUrl: $iconUrl)';
+  }
 }

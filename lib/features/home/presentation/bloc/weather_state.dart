@@ -1,17 +1,43 @@
+import 'package:olly_weather_app/features/home/domain/forecast_entity.dart';
 import 'package:olly_weather_app/features/home/domain/weather_entity.dart';
 
-sealed class WeatherState {}
+enum LoadingState { initial, loading, success, error }
 
-class WeatherInitial extends WeatherState {}
+class WeatherState {
+  final LoadingState loadingState;
 
-class WeatherLoading extends WeatherState {}
+  final LoadingState forecastLoadingState;
 
-class WeatherSuccess extends WeatherState {
-  final WeatherEntity weather;
-  WeatherSuccess(this.weather);
-}
+  final WeatherEntity? weather;
+  final ForecastEntity? forecast;
+  final String? error;
 
-class WeatherError extends WeatherState {
-  final String message;
-  WeatherError(this.message);
+  const WeatherState({
+    required this.loadingState,
+    required this.forecastLoadingState,
+    this.weather,
+    this.forecast,
+    this.error = '',
+  });
+
+  WeatherState copyWith({
+    LoadingState? loadingState,
+    LoadingState? forecastLoadingState,
+    WeatherEntity? weather,
+    ForecastEntity? forecast,
+    String? error,
+  }) {
+    return WeatherState(
+      loadingState: loadingState ?? this.loadingState,
+      forecastLoadingState: forecastLoadingState ?? this.forecastLoadingState,
+      weather: weather ?? this.weather,
+      forecast: forecast ?? this.forecast,
+      error: error,
+    );
+  }
+
+  factory WeatherState.initial() => const WeatherState(
+        loadingState: LoadingState.initial,
+        forecastLoadingState: LoadingState.initial,
+      );
 }
