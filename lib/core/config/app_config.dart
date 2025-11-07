@@ -5,7 +5,7 @@ import 'package:olly_weather_app/gen/assets.gen.dart';
 class AppConfig {
   /// Loads the correct environment file for local development.
   static Future<void> loadEnv() async {
-    if (kIsWeb) {
+    if (!kIsWeb) {
       String envFile = Assets.configs.aEnv;
       try {
         await dotenv.load(fileName: envFile);

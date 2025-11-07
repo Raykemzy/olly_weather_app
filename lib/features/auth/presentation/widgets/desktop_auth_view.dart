@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:olly_weather_app/core/extensions/context_extensions.dart';
 import 'package:olly_weather_app/core/utils/app_textstyles.dart';
 import 'package:olly_weather_app/features/auth/presentation/widgets/mobile_login_view.dart';
+import 'package:olly_weather_app/features/auth/presentation/widgets/registration_view.dart';
 
-class DesktopLoginView extends StatelessWidget {
-  const DesktopLoginView({super.key});
+enum DesktopAuthViewType { login, registration }
+
+class DesktopAuthView extends StatelessWidget {
+  final DesktopAuthViewType type;
+  const DesktopAuthView({super.key, required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +28,20 @@ class DesktopLoginView extends StatelessWidget {
                 ),
                 Text(
                   'The best weather app for your home',
-                  style: AppTextStyles.s16w400.copyWith(color: Colors.white, fontStyle: FontStyle.italic),
+                  style: AppTextStyles.s16w400.copyWith(
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Sign up to continue 👉🏽',
-                  style: AppTextStyles.s16w400.copyWith(color: Colors.white, fontStyle: FontStyle.italic),
+                  type == DesktopAuthViewType.login
+                      ? 'Sign up to continue 👉🏽'
+                      : 'Login to continue 👉🏽',
+                  style: AppTextStyles.s16w400.copyWith(
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ],
             ),
@@ -46,7 +58,9 @@ class DesktopLoginView extends StatelessWidget {
               bottomLeft: Radius.circular(10),
             ),
           ),
-          child: LoginView(),
+          child: type == DesktopAuthViewType.login
+              ? LoginView()
+              : RegistrationView(),
         ),
       ],
     );

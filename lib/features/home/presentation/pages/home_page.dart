@@ -54,76 +54,88 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 10),
-            BlocBuilder<WeatherCubit, WeatherState>(
-              builder: (context, state) {
-                if (state.loadingState == LoadingState.loading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (state.loadingState == LoadingState.error) {
-                  return Center(
-                    child: Text(
-                      'Something went wrong',
-                      style: AppTextStyles.s16w400.copyWith(color: Colors.white),
-                    ),
-                  );
-                }
-                if (state.loadingState == LoadingState.success) {
-                  final weather = state.weather as WeatherEntity;
-                  return Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Column(
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.grey.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: BlocBuilder<WeatherCubit, WeatherState>(
+                builder: (context, state) {
+                  if (state.loadingState == LoadingState.loading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state.loadingState == LoadingState.error) {
+                    return Center(
+                      child: Text(
+                        state.error ?? 'Something went wrong',
+                        style: AppTextStyles.s16w400.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    );
+                  }
+                  if (state.loadingState == LoadingState.success) {
+                    final weather = state.weather as WeatherEntity;
+                    return Column(
                       children: [
                         WeatherDetails(weather: weather),
                         WeatherSecondaryDetailsWidget(weather: weather),
                       ],
-                    ),
-                  );
-                }
-                return const SizedBox.shrink();
-              },
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
             ),
             const SizedBox(height: 10),
-            BlocBuilder<WeatherCubit, WeatherState>(
-              builder: (context, state) {
-                if (state.forecastLoadingState == LoadingState.loading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (state.forecastLoadingState == LoadingState.error) {
-                  return Center(
-                    child: Text(
-                      'Something went wrong',
-                      style: AppTextStyles.s16w400.copyWith(color: Colors.white),
-                    ),
-                  );
-                }
-                if (state.forecastLoadingState == LoadingState.success) {
-                  final forecast = state.forecast as ForecastEntity;
-                  return Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '7-day Forecast',
-                          style: AppTextStyles.s20w800.copyWith(
-                            color: Colors.white,
-                          ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.grey.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: BlocBuilder<WeatherCubit, WeatherState>(
+                builder: (context, state) {
+                  if (state.forecastLoadingState == LoadingState.loading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state.forecastLoadingState == LoadingState.error) {
+                    return Center(
+                      child: Text(
+                        state.error ?? 'Something went wrong',
+                        style: AppTextStyles.s16w400.copyWith(
+                          color: Colors.white,
                         ),
-                        DailyForecastWidget(forecast: forecast),
-                      ],
-                    ),
-                  );
-                }
-                return const SizedBox.shrink();
-              },
+                      ),
+                    );
+                  }
+                  if (state.forecastLoadingState == LoadingState.success) {
+                    final forecast = state.forecast as ForecastEntity;
+                    return Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Daily Forecast',
+                            style: AppTextStyles.s20w800.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                          DailyForecastWidget(forecast: forecast),
+                        ],
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
             ),
           ],
         ),

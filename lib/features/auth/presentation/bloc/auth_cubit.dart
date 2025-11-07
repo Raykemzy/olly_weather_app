@@ -8,9 +8,25 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this._authRepo) : super(AuthInitial());
 
   void login(String email, String password) async {
+    emit(AuthLoading());
     try {
-      emit(AuthLoading());
       final response = await _authRepo.login(email, password);
+      Future.delayed(const Duration(seconds: 2), () {});
+      if (response.success) {
+        emit(AuthSuccess(isAuthenticated: true, data: response.data as bool));
+      } else {
+        emit(AuthError(message: response.message));
+      }
+    } catch (e) {
+      emit(AuthError(message: e.toString()));
+    }
+  }
+
+  void signup(String email, String password) async {
+    emit(AuthLoading());
+    try {
+      final response = await _authRepo.signup(email, password);
+      Future.delayed(const Duration(seconds: 2), () {});
       if (response.success) {
         emit(AuthSuccess(isAuthenticated: true, data: response.data as bool));
       } else {

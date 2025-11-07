@@ -10,6 +10,20 @@ class AuthRepo {
     'user@email.com': _hashPassword('password123'),
   };
 
+  Future<BaseResponse<bool>> signup(String email, String password) async {
+    await Future.delayed(const Duration(seconds: 1));
+    try {
+      final hashedPassword = _hashPassword(password);
+      if (_users.containsKey(email)) {
+        return (success: false, message: 'Email already exists', data: false);
+      }
+      _users[email] = hashedPassword;
+      return (success: true, message: 'Signup successful', data: true);
+    } catch (e) {
+      return AppError.handleError<bool>(false);
+    }
+  }
+
   static String _hashPassword(String password) {
     return sha256.convert(utf8.encode(password)).toString();
   }
@@ -19,7 +33,8 @@ class AuthRepo {
     try {
       final hashedPassword = _hashPassword(password);
       final storedHashedPassword = _users[email];
-      if (storedHashedPassword == null || hashedPassword.isEmpty) {
+      final isAuthenticated = storedHashedPassword == hashedPassword;
+      if (!isAuthenticated) {
         return (
           success: false,
           message: 'Invalid email or password',
@@ -27,7 +42,7 @@ class AuthRepo {
         );
       }
       return (
-        success: storedHashedPassword == hashedPassword,
+        success: isAuthenticated,
         message: 'Login successful',
         data: true,
       );

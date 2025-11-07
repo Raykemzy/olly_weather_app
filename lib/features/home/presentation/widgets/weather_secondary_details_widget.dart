@@ -16,17 +16,17 @@ class WeatherSecondaryDetailsWidget extends StatelessWidget {
         alignment: WrapAlignment.center,
         runAlignment: WrapAlignment.center,
         runSpacing: 10,
-        children: [..._buildWeatherSecondaryDetailsItem(weather)],
+        children: _buildWeatherSecondaryDetailsItem(weather, useFlexible: false),
       ),
       desktop: Row(
         spacing: 10,
-        children: [..._buildWeatherSecondaryDetailsItem(weather)],
+        children: _buildWeatherSecondaryDetailsItem(weather, useFlexible: true),
       ),
     );
   }
 
-  List<Widget> _buildWeatherSecondaryDetailsItem(WeatherEntity weather) {
-    return [
+  List<Widget> _buildWeatherSecondaryDetailsItem(WeatherEntity weather, {required bool useFlexible}) {
+    final items = [
       _WeatherSecondaryDetailsItem(
         title: 'Feels like',
         value: '${weather.feelsLikeCelsius.toStringAsFixed(1)}°C',
@@ -40,6 +40,11 @@ class WeatherSecondaryDetailsWidget extends StatelessWidget {
         value: '${weather.windSpeed.toStringAsFixed(1)} km/h',
       ),
     ];
+    
+    if (useFlexible) {
+      return items.map((item) => Flexible(child: item)).toList();
+    }
+    return items;
   }
 }
 
@@ -53,26 +58,24 @@ class _WeatherSecondaryDetailsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        width: context.screenWidth,
-        decoration: BoxDecoration(
-          color: Colors.grey.withValues(alpha: 0.3),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          children: [
-            Text(
-              title.toUpperCase(),
-              style: AppTextStyles.s16w700.copyWith(color: Colors.grey),
-            ),
-            Text(
-              value,
-              style: AppTextStyles.s20w800.copyWith(color: Colors.white),
-            ),
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      width: context.screenWidth,
+      decoration: BoxDecoration(
+        color: Colors.grey.withValues(alpha: 0.3),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: [
+          Text(
+            title.toUpperCase(),
+            style: AppTextStyles.s16w700.copyWith(color: Colors.grey),
+          ),
+          Text(
+            value,
+            style: AppTextStyles.s20w800.copyWith(color: Colors.white),
+          ),
+        ],
       ),
     );
   }
