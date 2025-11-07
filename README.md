@@ -42,13 +42,13 @@ flutter pub get
 
 ### 3️⃣ Add your environment file
 
-Copy the example file and update it with your actual API key:
+Create the `.env` file from the provided `.env.example` template:
 
 ```bash
 cp assets/config/.env.example assets/config/.env
 ```
 
-Then open `assets/config/.env` and add your key:
+Then open `assets/config/.env` and replace the placeholder with your actual API key:
 
 ```env
 OPENWEATHER_API_KEY=your_api_key_here
