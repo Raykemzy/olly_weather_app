@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:olly_weather_app/core/extensions/context_extensions.dart';
 import 'package:olly_weather_app/core/utils/app_textstyles.dart';
-import 'package:olly_weather_app/features/auth/presentation/widgets/mobile_login_view.dart';
+import 'package:olly_weather_app/features/auth/presentation/widgets/login_view.dart';
 import 'package:olly_weather_app/features/auth/presentation/widgets/registration_view.dart';
 
 enum DesktopAuthViewType { login, registration }
@@ -59,8 +59,8 @@ class DesktopAuthView extends StatelessWidget {
             ),
           ),
           child: type == DesktopAuthViewType.login
-              ? LoginView()
-              : RegistrationView(),
+              ? const LoginView()
+              : const RegistrationView(),
         ),
       ],
     );

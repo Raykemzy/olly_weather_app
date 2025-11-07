@@ -43,7 +43,11 @@ class _LoginViewState extends State<LoginView> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Form(
         key: _formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: () {
+          setState(() {
+            isEnabled = _formKey.currentState?.validate() == true;
+          });
+        },
         child: Column(
           spacing: 15,
           mainAxisAlignment: MainAxisAlignment.center,

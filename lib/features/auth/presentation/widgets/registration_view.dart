@@ -50,7 +50,11 @@ class _RegistrationViewState extends State<RegistrationView> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Form(
         key: _formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: () {
+          setState(() {
+            isEnabled = _formKey.currentState?.validate() == true;
+          });
+        },
         child: Column(
           spacing: 15,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -80,11 +84,14 @@ class _RegistrationViewState extends State<RegistrationView> {
             AppTextField(
               hintText: 'Confirm your password',
               controller: confirmPasswordController,
+              validator: Validators.notEmpty(),
               obscureText: !isConfirmPasswordVisible,
               suffixIcon: IconButton(
                 onPressed: _toggleConfirmPasswordVisibility,
                 icon: Icon(
-                  isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  isConfirmPasswordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off,
                   color: Colors.white,
                 ),
               ),
